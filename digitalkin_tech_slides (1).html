@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalKin - Architecture Tech et Produit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .slides-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            font-size: 2.8em;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        .slide h3 {
+            font-size: 1.8em;
+            font-weight: 400;
+            margin-bottom: 25px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .slide p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 900px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .slide ul {
+            font-size: 1.2em;
+            line-height: 2;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .slide li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #64b5f6;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: rgba(100, 181, 246, 0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin-top: 30px;
+        }
+
+        .arch-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .arch-card h4 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #64b5f6;
+        }
+
+        .platform-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin-top: 40px;
+        }
+
+        .platform-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            width: 280px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .platform-box h4 {
+            color: #64b5f6;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .arrow {
+            font-size: 2em;
+            color: #64b5f6;
+            margin: 0 20px;
+        }
+
+        .contact-slide {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            font-size: 1.4em;
+            line-height: 1.8;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 0.9em;
+            opacity: 0.6;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            opacity: 0.8;
+            font-weight: 300;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+            
+            .slide h1 {
+                font-size: 2.5em;
+            }
+            
+            .slide h2 {
+                font-size: 2em;
+            }
+            
+            .architecture-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .platform-flow {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slides-container">
+        
+        <!-- Slide 1: Titre -->
+        <div class="slide">
+            <h1>DigitalKin</h1>
+            <p class="subtitle">Architecture Tech et Produit</p>
+            <p style="margin-top: 40px; opacity: 0.7;">Dompter la complexité avec l'IA agentique</p>
+            <div class="slide-number">1</div>
+        </div>
+
+        <!-- Slide 2: Le Défi -->
+        <div class="slide">
+            <h2>Le Défi</h2>
+            <div style="max-width: 800px; text-align: left;">
+                <p style="text-align: center; margin-bottom: 40px;">La complexité augmente inexorablement, mais les agents IA actuels ne ciblent que les cas d'usage simples</p>
+                <ul>
+                    <li>Missions <span class="highlight">complexes</span> : des milliers d'étapes, nombreux arbitrages</li>
+                    <li>Enjeux <span class="highlight">critiques</span> : l'erreur n'est pas permise</li>
+                    <li>Expertise <span class="highlight">spécialisée</span> : indisponible sur internet</li>
+                </ul>
+                <p style="text-align: center; margin-top: 40px; font-style: italic; opacity: 0.9;">
+                    Comment permettre à l'IA de dompter cette complexité ?
+                </p>
+            </div>
+            <div class="slide-number">2</div>
+        </div>
+
+        <!-- Slide 3: Notre Vision -->
+        <div class="slide">
+            <h2>Notre Vision</h2>
+            <p style="font-size: 1.5em; margin-bottom: 40px;">Permettre à toute expertise humaine de se transformer en intelligence artificielle spécialisée</p>
+            <div style="display: flex; justify-content: space-around; align-items: center; max-width: 900px; margin-top: 50px;">
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 120px; background: rgba(100, 181, 246, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <span style="font-size: 3em;">🧠</span>
+                    </div>
+                    <h4>Expertise Humaine</h4>
+                </div>
+                <div style="font-size: 3em; color: #64b5f6;">→</div>
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 120px; background: rgba(100, 181, 246, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <span style="font-size: 3em;">🤖</span>
+                    </div>
+                    <h4>Agent IA Spécialisé</h4>
+                </div>
+                <div style="font-size: 3em; color: #64b5f6;">→</div>
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 120px; background: rgba(100, 181, 246, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <span style="font-size: 3em;">🌐</span>
+                    </div>
+                    <h4>Écosystème Global</h4>
+                </div>
+            </div>
+            <div class="slide-number">3</div>
+        </div>
+
+        <!-- Slide 4: La Solution -->
+        <div class="slide">
+            <h2>La Solution</h2>
+            <h3>Spécialisation + Collaboration</h3>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; max-width: 1000px; margin-top: 40px;">
+                <div style="width: 45%; text-align: center;">
+                    <div style="background: rgba(100, 181, 246, 0.2); padding: 30px; border-radius: 15px; height: 300px; display: flex; flex-direction: column; justify-content: center;">
+                        <h4 style="color: #64b5f6; margin-bottom: 20px; font-size: 1.5em;">Spécialisation</h4>
+                        <p>Architecture modulaire pensée pour l'expertise</p>
+                        <p style="margin-top: 15px; opacity: 0.9;">Ancrage dans le réel</p>
+                        <p style="margin-top: 15px; opacity: 0.9;">Contrôle qualité intégré</p>
+                    </div>
+                </div>
+                <div style="width: 45%; text-align: center;">
+                    <div style="background: rgba(100, 181, 246, 0.2); padding: 30px; border-radius: 15px; height: 300px; display: flex; flex-direction: column; justify-content: center;">
+                        <h4 style="color: #64b5f6; margin-bottom: 20px; font-size: 1.5em;">Collaboration</h4>
+                        <p>Agentic Mesh Protocol</p>
+                        <p style="margin-top: 15px; opacity: 0.9;">Communications agent-à-agent</p>
+                        <p style="margin-top: 15px; opacity: 0.9;">Maillage distribué</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4</div>
+        </div>
+
+        <!-- Slide 5: Architecture Modulaire -->
+        <div class="slide">
+            <h2>Architecture Modulaire</h2>
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h4>Modules</h4>
+                    <p>LLMs, Tools, éléments d'action sur l'environnement</p>
+                </div>
+                <div class="arch-card">
+                    <h4>Archétypes</h4>
+                    <p>Modèles génériques préconfigurés pour un domaine</p>
+                </div>
+                <div class="arch-card">
+                    <h4>Kins</h4>
+                    <p>Archétypes + expertise métier spécifique</p>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 1.1em; opacity: 0.9;">
+                Modules standardisés → Archétypes configurables → Kins experts
+            </p>
+            <div class="slide-number">5</div>
+        </div>
+
+        <!-- Slide 6: Agentic Mesh -->
+        <div class="slide">
+            <h2>Agentic Mesh</h2>
+            <h3>Infrastructure de Collaboration</h3>
+            <div style="max-width: 800px; text-align: left; margin-top: 30px;">
+                <ul>
+                    <li><span class="highlight">Écosystème ouvert</span> standardisé et complet</li>
+                    <li><span class="highlight">Découverte dynamique</span> des ressources</li>
+                    <li><span class="highlight">Routage intelligent</span> des requêtes</li>
+                    <li><span class="highlight">gRPC Protocol</span> pour performances et sécurité</li>
+                    <li><span class="highlight">Auto-scaling</span> et gestion des coûts</li>
+                </ul>
+            </div>
+            <p style="margin-top: 40px; font-style: italic; opacity: 0.9;">
+                Au-delà des standards actuels : vraies communications agent-à-agent
+            </p>
+            <div class="slide-number">6</div>
+        </div>
+
+        <!-- Slide 7: SDK All-in-One -->
+        <div class="slide">
+            <h2>SDK "Tout-en-Un"</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 900px; margin-top: 40px;">
+                <div class="arch-card">
+                    <h4>Services Intégrés</h4>
+                    <p>LLMs, stockage, système de fichiers distribués</p>
+                </div>
+                <div class="arch-card">
+                    <h4>Gestion Automatique</h4>
+                    <p>Coûts, scaling, monitoring, logs</p>
+                </div>
+                <div class="arch-card">
+                    <h4>Approche Unifiée</h4>
+                    <p>Fini l'assemblage manuel de composants hétérogènes</p>
+                </div>
+                <div class="arch-card">
+                    <h4>Focus Développeur</h4>
+                    <p>Se concentrer uniquement sur l'archétype ou l'outil</p>
+                </div>
+            </div>
+            <div class="slide-number">7</div>
+        </div>
+
+        <!-- Slide 8: Trois Plateformes -->
+        <div class="slide">
+            <h2>Trois Plateformes, Un Écosystème</h2>
+            <div class="platform-flow">
+                <div class="platform-box">
+                    <h4>Hub</h4>
+                    <p>Découvrir et utiliser les Kins</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Utilisateurs finaux</p>
+                </div>
+                <div class="arrow">↔</div>
+                <div class="platform-box">
+                    <h4>Kin Designer Studio</h4>
+                    <p>Transformer l'expertise en Kin</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Experts métier</p>
+                </div>
+                <div class="arrow">↔</div>
+                <div class="platform-box">
+                    <h4>DigitalKin Creator</h4>
+                    <p>Créer archétypes et tools</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Développeurs</p>
+                </div>
+            </div>
+            <p style="margin-top: 50px; opacity: 0.9;">Interconnectées par l'Agentic Mesh Protocol</p>
+            <div class="slide-number">8</div>
+        </div>
+
+        <!-- Slide 9: Écosystème Ouvert -->
+        <div class="slide">
+            <h2>Écosystème Ouvert & Incitatif</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin-top: 40px;">
+                <div style="width: 45%;">
+                    <h3 style="color: #64b5f6; margin-bottom: 20px;">Créer Facilement</h3>
+                    <ul style="font-size: 1.1em;">
+                        <li>Aucune compétence dev requise</li>
+                        <li>Registry universel</li>
+                        <li>Déploiement en un clic</li>
+                    </ul>
+                </div>
+                <div style="width: 45%;">
+                    <h3 style="color: #64b5f6; margin-bottom: 20px;">Monétiser Facilement</h3>
+                    <ul style="font-size: 1.1em;">
+                        <li>Marketplace intégrée</li>
+                        <li>Système de crédits</li>
+                        <li>Prix libre par créateur</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 50px; font-style: italic; color: #64b5f6; font-size: 1.2em;">
+                L'effet de réseau au service de l'expertise
+            </p>
+            <div class="slide-number">9</div>
+        </div>
+
+        <!-- Slide 10: Vision d'Impact -->
+        <div class="slide">
+            <h2>Vision d'Impact</h2>
+            <div style="max-width: 900px; text-align: center; margin-top: 40px;">
+                <p style="font-size: 1.4em; margin-bottom: 30px;">Démocratiser l'expertise à l'échelle mondiale</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3em; margin-bottom: 15px;">💊</div>
+                        <p>Accélérer l'arrivée de nouveaux médicaments</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3em; margin-bottom: 15px;">🔬</div>
+                        <p>Libérer les chercheurs des tâches administratives</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3em; margin-bottom: 15px;">📋</div>
+                        <p>Créer des documents complexes irréprochables</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">10</div>
+        </div>
+
+        <!-- Slide 11: Contact -->
+        <div class="slide contact-slide">
+            <div class="contact-info">
+                <h3>Emmanuel Théry</h3>
+                <div class="contact-details">
+                    <p>CEO & Co-fondateur</p>
+                    <p style="color: #64b5f6; margin-top: 20px;">e.thery@digitalkin.ai</p>
+                </div>
+                <p style="margin-top: 50px; font-size: 1.1em; opacity: 0.8;">
+                    Prêts à dompter la complexité ensemble ?
+                </p>
+            </div>
+            <div class="slide-number">11</div>
+        </div>
+
+    </div>
+
+    <script>
+        // Smooth scrolling between slides
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+
+        // Update current slide based on scroll position
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    currentSlide = Array.from(slides).indexOf(entry.target);
+                }
+            });
+        }, { threshold: 0.7 });
+
+        slides.forEach((slide) => {
+            observer.observe(slide);
+        });
+    </script>
+</body>
+</html>
